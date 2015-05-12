@@ -13,8 +13,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		tv=(TextView)findViewById(R.id.tv_test);
-		tv.setText("test error");
-		
+		tv.setText("别吵,以我的为准");
 	}
 	
 }
