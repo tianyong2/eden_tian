@@ -1,0 +1,184 @@
+1.
+2. vim README 创建readme文件
+
+3.git status 查看现在的的文件状态
+
+4.git add README
+
+5.cat .gitignore 查看要忽略的文件
+
+6.  A: vim .gitignore 添加该文件编辑要忽略掉的文件
+B:按esc  C :输入:wq按enter 退出编辑界面
+
+7. 要查看尚未暂存的文件更新了哪些部分，不加参数直接输入 git diff
+
+8.若要看已经暂存起来的文件和上次提交时的快照之间的差异，可以用 git diff --cached 命令,或者git diff --staged
+
+9.git commit -m “提交说明”
+
+10.git rm +文件名 :将文件移除(是将其从暂存区移除,并实际的删除该文件)还需要在此提交   (git rm --f  文件路径:强行删除staged 的文件)
+
+11:改名 git mv file_from file_to 例如: git mv README.txt README
+
+12: git clone git://github.com/schacon/simplegit-progit.git
+
+13.git log 
+  git log -p -2 筛选出 最近两次的更新
+
+ 14: git commit --amend 重新提交(如果没有改动,可以重新编辑提交记录)
+   如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行 --amend 提交：
+  git commit -m “什么什么事”
+  git add test.txt
+  git commit --amend
+
+ 15.取消对文件的修改 
+http://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C  
+                远程
+15.要查看当前配置有哪些远程仓库，可以用 git remote 命令,也可以加上 -v 选项（译注：此为 --verbose 的简写，取首字母），显示对应的克隆地址.
+
+16要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，运行 git remote add  
+ git remote add pb git://github.com/paulboone/ticgit.git
+ pb相当鱼后面连接所对应仓库的名字
+ 现在可以用字符串 pb 指代对应的仓库地址了。比如说，要抓取所有 Paul 有的，但本地仓库没有的信息，可以运行 git fetch pb：
+现在，Paul 的主干分支（master）已经完全可以在本地访问了，对应的名字是 pb/master，你可以将它合并到自己的某个分支，或者切换到这个分支，看看有些什么有趣的更新。
+
+   
+
+17.到远程仓库中拉取所有你本地仓库中还没有的数据 git fetch [remote-name]
+18 .git push origin master 推送
+19.我们可以通过命令 git remote show [remote-name] 查看某个远程仓库的详细信息\
+
+http://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8
+
+
+20.在新版 Git 中可以用 git remote rename 命令修改某个远程仓库在本地的简称，比如想把 pb 改成paul，可以这么运行：git remote rename pb paul
+21.移除对应的远端仓库 git remote rm paul
+
+    git fetch 和git pull 区别
+        1. git fetch：相当于是从远程获取最新版本到本地，不会自动merge
+    
+git fetch origin master
+git log -p master..origin/master
+git merge origin/master
+    以上命令的含义：
+   首先从远程的origin的master主分支下载最新的版本到origin/master分支上
+   然后比较本地的master分支和origin/master分支的差别
+   最后进行合并
+   上述过程其实可以用以下更清晰的方式来进行：
+git fetch origin master:tmp
+git diff tmp 
+git merge tmp
+    从远程获取最新的版本到本地的test分支上
+   之后再进行比较合并
+2. git pull：相当于是从远程获取最新版本并merge到本地
+git pull origin master
+上述命令其实相当于git fetch 和 git merge
+在实际使用中，git fetch更安全一些
+因为在merge前，我们可以查看更新情况，然后再决定是否合并
+结束
+
+
+//整理到2.6
+               标签:(可用于版本号)
+1.列出现有标签的命令非常简单，直接运行 git tag 即可
+2.有过个标签时$ git tag -l 'v1.4.2.*' 可以擦看该系列的标签
+3.创建一个含附注类型的标签非常简单，用 -a 
+git tag -a v1.4 -m 'my version 1.4' 含附注的标签
+
+
+$ git tag -s v1.5 -m 'my signed 1.5 tag'签署标签
+
+4.git show v1.4 看相应标签的版本信息
+5. 显示提交历史 git log --pretty=oneline
+6.git tag -a v1.2 9fceb02 (配合上一条使用,后期补上标签)
+7.git checkout -b branch_name tag_name 根据标签名来创建一个分支
+
+
+8.分享标签 git push origin v1.5 分享一个 git push origin --tags 分享所有
+     技巧
+1.git config --global alias.co checkout 去别名 用co 代替checkout
+              
+                       分支  
+1.git branch testing 创建分支
+2.git checkout testing 切换到该分支 (注:切换分支时,工作空间的文件自动改变为  
+      该分支所对应的)
+3.git checkout -b iss53 创建并切换到该分支
+4.查看本地分支 git branch 
+5.查看远程分支 git branch -a  
+6.git merge hotfix 合并hotfix分支到当前分支一般来说是master分支
+7.git branch -d hotfix 删除该分支
+8.git mergetool 打开解决冲突时的可视化窗口
+9.git branch -v 查看各分支最后一次提交信息
+10.git branch --merged  查看哪些分支已被并入当前分支
+11.git branch --no-merged 查看尚未合并的工作
+       分支的新建与合并
+现在让我们来看一个简单的分支与合并的例子，实际工作中大体也会用到这样的工作流程：
+1.开发某个网站。
+2.为实现某个新的需求，创建一个分支。
+3.在这个分支上开展工作。
+假设此时，你突然接到一个电话说有个很严重的问题需要紧急修补，那么可以按照下面的方式处理：
+1.返回到原先已经发布到生产服务器上的分支。
+2.为这次紧急修补建立一个新分支，并在其中修复问题。
+3.通过测试后，回到生产服务器所在的分支，将修补分支合并进来，然后再推送到生产服务器上。
+4.切换到之前实现新需求的分支，继续工作。
+             
+
+
+ 
+       远程分支
+我们用 (远程仓库名)/(分支名) 这样的形式表示远程分支
+0.创建远程分支 git push origin 本地分支名
+1.git fetch origin 同步远程服务器上的数据到本地,该命令首先找到 origin 是哪个服务器（本例为 git.ourcompany.com），从上面获取你尚未拥有的数据
+2.推送本地分支git push (远程仓库名) (分支名) :git push origin serverfix
+  git push origin one:origin_one将本地 one分支推送到远程one分支
+
+ 介绍:
+  如果你有个叫 serverfix 的分支需要和他人一起开发，可以运行 git push (远程仓库名) (分支名)：
+$ git push origin serverfixCounting objects: 20, done.Compressing objects: 100% (14/14), done.Writing objects: 100% (15/15), 1.74 KiB, done.Total 15 (delta 5), reused 0 (delta 0)To git@github.com:schacon/simplegit.git * [new branch]      serverfix -> serverfix
+这里其实走了一点捷径。Git 自动把 serverfix 分支名扩展为refs/heads/serverfix:refs/heads/serverfix，意为“取出我在本地的 serverfix 分支，推送到远程仓库的 serverfix 分支中去”。我们将在第九章进一步介绍 refs/heads/ 部分的细节，不过一般使用的时候都可以省略它。也可以运行 git push origin serverfix:serverfix 来实现相同的效果，它的意思是“上传我本地的 serverfix 分支到远程仓库中去，仍旧称它为 serverfix 分支”。通过此语法，你可以把本地分支推送到某个命名不同的远程分支：若想把远程分支叫作 awesomebranch，可以用 git push origin serverfix:awesomebranch 来推送数据。
+接下来，当你的协作者再次从服务器上获取数据时，他们将得到一个新的远程分支 origin/serverfix，并指向服务器上 serverfix 所指向的版本：
+$ git fetch originremote: Counting objects: 20, done.remote: Compressing objects: 100% (14/14), done.remote: Total 15 (delta 5), reused 0 (delta 0)Unpacking objects: 100% (15/15), done.From git@github.com:schacon/simplegit * [new branch]      serverfix    -> origin/serverfix
+值得注意的是，在 fetch 操作下载好新的远程分支之后，你仍然无法在本地编辑该远程仓库中的分支。换句话说，在本例中，你不会有一个新的 serverfix 分支，有的只是一个你无法移动的origin/serverfix 指针。
+如果要把该远程分支的内容合并到当前分支，可以运行 git merge origin/serverfix。如果想要一份自己的 serverfix 来开发，可以在远程分支的基础上分化出一个新的分支来：
+$ git checkout -b serverfix origin/serverfixBranch serverfix set up to track remote branch serverfix from origin.Switched to a new branch 'serverfix'
+这会切换到新建的 serverfix 本地分支，其内容同远程分支 origin/serverfix 一致，这样你就可以在里面继续开发了。
+ 1.跟踪远程分支git checkout -b [分支名] [远程名]/[分支名]
+   如果你有 1.6.2 以上版本的 Git，还可以用 --track 选项简化：
+  $ git checkout --track origin/serverfix
+删除远程分支
+如果不再需要某个远程分支了，比如搞定了某个特性并把它合并进了远程的 master 分支（或任何其他存放稳定代码的分支），可以用这个非常无厘头的语法来删除它：git push [远程名] :[分支名]。如果想在服务器上删除 serverfix 分支，运行下面的命令：
+$ git push origin :serverfixTo git@github.com:schacon/simplegit.git - [deleted]         serverfix
+咚！服务器上的分支没了。你最好特别留心这一页，因为你一定会用到那个命令，而且你很可能会忘掉它的语法。有种方便记忆这条命令的方法：记住我们不久前见过的 git push [远程名] [本地分支]:[远程分支] 语法，如果省略 [本地分支]，那就等于是在说“在这里提取空白然后把它变成[远程分支]”。
+
+                    rebase
+基本的衍合操作
+请回顾之前有关合并的一节（见图 3-27），你会看到开发进程分叉到两个不同分支，又各自提交了更新。
+
+
+图 3-27. 最初分叉的提交历史。
+之前介绍过，最容易的整合分支的方法是 merge 命令，它会把两个分支最新的快照（C3 和 C4）以及二者最新的共同祖先（C2）进行三方合并，合并的结果是产生一个新的提交对象（C5）。如图 3-28 所示：
+
+
+图 3-28. 通过合并一个分支来整合分叉了的历史。
+其实，还有另外一个选择：你可以把在 C3 里产生的变化补丁在 C4 的基础上重新打一遍。在 Git 里，这种操作叫做衍合（rebase）。有了 rebase 命令，就可以把在一个分支里提交的改变移到另一个分支里重放一遍。
+在上面这个例子中，运行：
+$ git checkout experiment$ git rebase masterFirst, rewinding head to replay your work on top of it...Applying: added staged command
+它的原理是回到两个分支最近的共同祖先，根据当前分支（也就是要进行衍合的分支 experiment）后续的历次提交对象（这里只有一个 C3），生成一系列文件补丁，然后以基底分支（也就是主干分支master）最后一个提交对象（C4）为新的出发点，逐个应用之前准备好的补丁文件，最后会生成一个新的合并提交对象（C3'），从而改写 experiment 的提交历史，使它成为 master 分支的直接下游，如图 3-29 所示：
+
+
+图 3-29. 把 C3 里产生的改变到 C4 上重演一遍。
+1.Rebase 
+  $ git checkout experiment
+  $ git rebase master
+   First, rewinding head to replay your work on top of it... Applying: added staged command
+2.git checkout client
+  git rebase --onto master server client
+3.git rebase master server 将分支server rebase到master 少了一步先要切换到server分支的操作
+   
+
+
+
+
+
+
+           
